@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+.leaflet-container {
+  @apply h-full w-full rounded-2xl;
+  font-family: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply rounded-full bg-gray-300;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+.rentalai-chat {
+  --chat--color-primary: #dc97e9;
+  --chat--color-primary-shade-50: #d27fe3;
+  --chat--color-primary-shade-100: #c867dd;
+  --chat--color-secondary: #9df2e7;
+  --chat--color-secondary-shade-50: #82eee0;
+  --chat--color-white: #ffffff;
+  --chat--color-light: #f9fafb;
+  --chat--color-light-shade-50: #f3f4f6;
+  --chat--color-light-shade-100: #e5e7eb;
+  --chat--color-medium: #d1d5db;
+  --chat--color-dark: #111827;
+  --chat--color-typing: #6b7280;
+  --chat--spacing: 1rem;
+  --chat--border-radius: 0.75rem;
+  --chat--message--border-radius: 1rem;
+  --chat--message--bot--background: #f3f4f6;
+  --chat--message--bot--color: #111827;
+  --chat--message--user--background: #dc97e9;
+  --chat--message--user--color: #111827;
+  --chat--body--background: #ffffff;
+  --chat--button--background--primary: #dc97e9;
+  --chat--button--color--primary: #111827;
+  --chat--button--background--primary--hover: #ac9df2;
+  height: 100%;
+  width: 100%;
+}
+
+.rentalai-chat .chat-header {
+  display: none;
+}
+
+.rentalai-chat .chat-layout,
+.rentalai-chat .chat-body {
+  height: 100%;
+}
