@@ -15,6 +15,12 @@ import { BuildingIcon, WalletIcon, ChartIcon, DownloadIcon } from './Icons';
 
 const OWNED_PAGE_SIZE = 100;
 
+function parseFilename(header: string | null): string {
+  if (!header) return 'reservas.xlsx';
+  const match = /filename\*?=(?:UTF-8'')?"?([^";]+)"?/i.exec(header);
+  return match ? decodeURIComponent(match[1]) : 'reservas.xlsx';
+}
+
 function averageRevenue(value: DashboardSummary['revenuePerProperty']): number {
   if (Array.isArray(value)) {
     if (value.length === 0) return 0;
@@ -70,7 +76,7 @@ export default function DashboardView() {
   const handleExport = async () => {
     setExporting(true);
     try {
-      const response = await fetch(api.exportUrl(), {
+      const response = await fetch(api.exportBookingsUrl(), {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined,
       });
       if (!response.ok) throw new Error();
@@ -78,7 +84,7 @@ export default function DashboardView() {
       const url = URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
-      link.download = 'reservas.xlsx';
+      link.download = parseFilename(response.headers.get('Content-Disposition'));
       link.click();
       URL.revokeObjectURL(url);
       toast('Exportacion lista', 'success');
@@ -126,8 +132,8 @@ export default function DashboardView() {
           <p className="mt-1 text-gray-500">Asi va tu actividad en RentalAI.</p>
         </div>
         <Button onClick={handleExport} loading={exporting}>
-          <DownloadIcon className="h-5 w-5" />
-          Exportar Excel
+          {!exporting && <DownloadIcon className="h-5 w-5" />}
+          {exporting ? 'Exportando...' : 'Exportar Excel'}
         </Button>
       </div>
 

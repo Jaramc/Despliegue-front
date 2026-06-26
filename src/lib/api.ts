@@ -232,7 +232,7 @@ export const api = {
   getDashboard() {
     return request<DashboardSummary>('/dashboard/summary', { auth: true });
   },
-  exportUrl() {
-    return buildUrl('/dashboard/export');
+  exportBookingsUrl() {
+    return buildUrl('/dashboard/export-bookings');
   },
 };
