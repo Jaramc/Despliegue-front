@@ -21,12 +21,9 @@ function parseFilename(header: string | null): string {
   return match ? decodeURIComponent(match[1]) : 'reservas.xlsx';
 }
 
-function averageRevenue(value: DashboardSummary['revenuePerProperty']): number {
-  if (Array.isArray(value)) {
-    if (value.length === 0) return 0;
-    return value.reduce((sum, item) => sum + item, 0) / value.length;
-  }
-  return value ?? 0;
+function averageRevenue(totalRevenue: number, propertyCount: number): number {
+  if (propertyCount <= 0) return 0;
+  return totalRevenue / propertyCount;
 }
 
 export default function DashboardView() {
@@ -116,7 +113,7 @@ export default function DashboardView() {
     },
     {
       label: 'Ingreso por inmueble',
-      value: formatPrice(averageRevenue(data?.revenuePerProperty ?? 0)),
+      value: formatPrice(averageRevenue(data?.totalRevenue ?? 0, data?.totalProperties ?? 0)),
       icon: <WalletIcon className="h-6 w-6" />,
       gradient: 'from-brand-blue/30 to-brand-mint/20',
     },
